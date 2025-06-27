@@ -12,5 +12,5 @@ function updatePrediction() {
   document.getElementById("color").innerText = color;
 }
 
-updatePrediction(); // first call immediately
-setInterval(updatePrediction, 30000); // every 30 sec
+updatePrediction(); // first update
+setInterval(updatePrediction, 30000); // every 30 seconds
