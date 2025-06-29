@@ -1,15 +1,25 @@
-{
-  "name": "VIPKWG Prediction",
-  "short_name": "Vipkwg",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#121212",
-  "theme_color": "#121212",
-  "icons": [
-    {
-      "src": "https://cdn-icons-png.flaticon.com/512/1040/1040230.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+async function getPrediction() {
+  try {
+    const response = await fetch("https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json");
+    const data = await response.json();
+    const current = data.data.list[0]; // सबसे लेटेस्ट
+
+    const number = current.number;
+    const color = current.color;
+    const bigSmall = number >= 5 ? "Big" : "Small";
+    const period = current.issueNumber;
+
+    document.getElementById("prediction").innerHTML = `
+      📊 KWG Prediction<br>
+      🆔 Period: ${period}<br>
+      🔢 Number: ${number}<br>
+      📏 Big/Small: ${bigSmall}<br>
+      🎨 Color: ${color}
+    `;
+  } catch (err) {
+    document.getElementById("prediction").innerHTML = "⚠️ Prediction load failed.";
+  }
 }
+
+document.getElementById("next").addEventListener("click", getPrediction);
+getPrediction(); // Initial call
